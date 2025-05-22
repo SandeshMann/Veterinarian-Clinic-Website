@@ -1,0 +1,366 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <div
+    class="tab-pane fade appt-tab-container"
+    id="pills-appointment"
+    role="tabpanel"
+    aria-labelledby="pills-appointment-tab"
+    th:fragment="appt_tab_frag"
+  >
+    <div class="mb-4 p-3" style="display: flex; justify-content: space-between">
+      <h2 class="mt-3">Appointment page</h2>
+      <button
+        class="btn btn-primary rp-btn mt-3"
+        data-bs-toggle="modal"
+        data-bs-target="#myModal"
+      >
+        + Add Appointment
+      </button>
+    </div>
+    <!-- Table -->
+    <div class="tab-table">
+      <table class="table table-striped appt-table">
+        <thead>
+          <tr>
+            <th scope="col">Clinic</th>
+            <th scope="col">Pet</th>
+            <th scope="col">Type</th>
+            <th scope="col">Appointment Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="appt : ${appointments}">
+            <td th:text="${appt.getClinic().getClinicName()}">Clinic</td>
+            <td th:text="${appt.getPet().getPetName()}">Pet</td>
+            <td th:text="${appt.getConsultationType()}">Type</td>
+            <td th:text="${appt.appointmentDate}">Appointment Date</td>
+            <td th:text="${appt.status}">Status</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-primary rp-btn"
+                th:onclick="'setAppointmentId(' + ${appt.getAppointmentId()} + ')'"
+                data-bs-toggle="modal"
+                data-bs-target="#reschedModal"
+                th:disabled="${appt.status} == 'Cancelled'"
+              >
+                Reschedule
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-primary rp-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#paymentModal"
+                th:disabled="${appt.status} == 'Cancelled'"
+              >
+                Pay Now
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-primary cancel-appt-btn"
+                th:onclick="'setAppointmentId(' + ${appt.getAppointmentId()} + ')'"
+                data-bs-toggle="modal"
+                data-bs-target="#cancelModal"
+                th:disabled="${appt.status} == 'Cancelled'"
+              >
+                Cancel
+              </button>
+            </td>
+          </tr>
+
+          <!-- Blank Rows if less than 10 -->
+          <tr th:each="i : ${#numbers.sequence(appointments.size() + 1, 7)}">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Reschedule Modal -->
+      <form onsubmit="confirmReschedAppt(event)">
+        <div
+          class="modal fade"
+          id="reschedModal"
+          tabindex="-1"
+          aria-labelledby="reschedModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content" style="height: 500px">
+              <div class="modal-header">
+                <h5 class="modal-title" id="reschedModalLabel">
+                  Reschedule Your Appointment
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body">
+                <div class="resched-tab">
+                  <h2 class="text-center p-2">Please Select an Availability</h2>
+                  <div class="date-picker">
+                    <label class="form-label">Select a Date</label>
+                    <input
+                      class="form-control"
+                      type="calendar-local"
+                      placeholder="Select Date"
+                      id="appointmentDate"
+                    />
+                  </div>
+                  <br />
+                  <div class="time-picker">
+                    <label class="form-label"
+                      >Select a Time (Appointments last up to 1 hour)</label
+                    >
+                    <div class="time-slot-container">
+                      <label class="time-slot">
+                        <input type="radio" name="time-slot" value="09:00" />
+                        <button
+                          class="btn btn-primary select-time selected"
+                          type="button"
+                        >
+                          09:00AM
+                        </button>
+                      </label>
+                      <label class="time-slot">
+                        <input type="radio" name="time-slot" value="10:00" />
+                        <button
+                          class="btn btn-primary select-time"
+                          type="button"
+                        >
+                          10:00AM
+                        </button>
+                      </label>
+                      <label class="time-slot">
+                        <input type="radio" name="time-slot" value="11:00" />
+                        <button
+                          class="btn btn-primary select-time"
+                          type="button"
+                        >
+                          11:00AM
+                        </button>
+                      </label>
+                      <label class="time-slot">
+                        <input type="radio" name="time-slot" value="12:00" />
+                        <button
+                          class="btn btn-primary select-time"
+                          type="button"
+                        >
+                          12:00PM
+                        </button>
+                      </label>
+                      <label class="time-slot">
+                        <input type="radio" name="time-slot" value="13:00" />
+                        <button
+                          class="btn btn-primary select-time"
+                          type="button"
+                        >
+                          1:00PM
+                        </button>
+                      </label>
+                      <label class="time-slot">
+                        <input type="radio" name="time-slot" value="14:00" />
+                        <button
+                          class="btn btn-primary select-time"
+                          type="button"
+                        >
+                          2:00PM
+                        </button>
+                      </label>
+                      <label class="time-slot">
+                        <input type="radio" name="time-slot" value="15:00" />
+                        <button
+                          class="btn btn-primary select-time"
+                          type="button"
+                        >
+                          3:00PM
+                        </button>
+                      </label>
+                      <label class="time-slot">
+                        <input type="radio" name="time-slot" value="16:00" />
+                        <button
+                          class="btn btn-primary select-time"
+                          type="button"
+                        >
+                          4:00PM
+                        </button>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary cancel-appt-btn">
+                  Reschedule
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Payment Modal -->
+      <form class="needs-validation" id="paymentForm">
+        <div
+          class="modal fade"
+          id="paymentModal"
+          tabindex="-1"
+          aria-labelledby="paymentModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content" style="height: 500px">
+              <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">
+                  Pay for your Appointment
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+      
+              <div class="modal-body">
+                <div class="payment-tab">
+                  <div id="p-online" style="padding: 1rem">
+                    <div class="mb-3">
+                      <label for="cardNumberProfile" class="form-label">Card Number</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="cardNumberProfile"
+                        placeholder="e.g. 1234 1234 1234 1234"
+                        required
+                      />
+                    </div>
+      
+                    <div>
+                      <label for="cardholderNameProfile" class="form-label"
+                        >Cardholder Name</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="cardholderNameProfile"
+                        placeholder="e.g. John Doe"
+                        required
+                      />
+                    </div>
+      
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="expiryDateProfile" class="form-label">Expiration Date</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="expiryDateProfile"
+                          placeholder="MM/YY"
+                          required
+                        />
+                      </div>
+      
+                      <div class="col-md-6 mb-3">
+                        <label for="cvvProfile" class="form-label">CVV</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="cvvProfile"
+                          placeholder="e.g. 123"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="modal-footer">
+                <button
+                  type="submit"
+                  class="payment-appt-btn btn btn-primary"
+                  id="payNowBtn"
+                  disabled
+                >
+                  Pay Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Delete Modal -->
+      <div
+        class="modal fade cancel-modal"
+        id="cancelModal"
+        tabindex="-1"
+        aria-labelledby="cancelModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content cancel-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="cancelModalLabel">
+                Confirm Cancellation
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to cancel this appointment?
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                No
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                onclick="confirmCancelAppt()"
+              >
+                Yes, Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scripts -->
+      <script src="/js/profile_appt_handling.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+      <script>
+        configDate = {
+          minDate: new Date().fp_incr(1),
+          dateFormat: "Y-m-d",
+          altInput: true,
+          altFormat: "F j, Y",
+          defaultDate: new Date().fp_incr(1),
+        };
+
+        flatpickr("input[type=calendar-local]", configDate);
+      </script>
+    </div>
+  </div>
+</html>

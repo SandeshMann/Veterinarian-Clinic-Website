@@ -1,0 +1,232 @@
+/*Resource: Urbanist font from google fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+.navbar {
+    font-family: "Urbanist", sans-serif;
+    background-color: #E7AD99; 
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+}
+
+/* Content area under the navbar */
+.content-area {
+    display: flex;           /* Flexbox layout */
+    justify-content: space-between; /* Text on left, image on right */
+    align-items: flex-start; /* Align items to the top */
+    margin-top: 70px;        /* Space below the navbar */
+    padding: 20px;           /* Optional padding */
+}
+
+/* Text content aligned to the left */
+.text-content {
+    flex: 1; /* Takes up the remaining space */
+    padding: 100px;
+}
+
+/* Image positioned on the right */
+.image-content {
+    width: auto; /* Set the image width */
+    height: auto; /* Keep the aspect ratio */
+    position: relative; /* Allows positioning relative to its container */
+}
+
+/* Make the image stick to the top-right */
+.image-content img {
+    position: fixed; /* Sticks to the top-right of the screen */
+    top: 100px; /* Adjust for navbar height */
+    right: 200px; /* Position slightly away from the right edge */
+    width: 400px; /* Image width */
+    height: 490px; /* Image height */
+    z-index: 5; /* Ensure it stays below the navbar */
+}
+  /* Add space below the text content */
+.text-start{
+  align-self: center;
+  width: 560px;
+}
+
+
+.text-start p {
+    font-family: "Urbanist", sans-serif;
+    font-size: 1.3rem;
+    color: #495867;
+    font-style: italic;
+    font-weight: 120;
+    margin-bottom: 20px;
+    
+}
+
+.text-start h1 {
+  font-family: "Urbanist", sans-serif;
+    font-size: 1.2rem;
+    color: #495867;
+    font-style: normal;
+    margin-bottom: 20px;
+    font-weight:600;
+}
+
+.text-start > button,
+.text-start > a {
+    font-family: "Urbanist", sans-serif;
+    height: 50px;
+    width: 150px;
+    font-size: 20px;
+    line-height: 37px;
+}
+/* Optional: Add padding to the row to control spacing */
+.row {
+    padding: 20px 0;
+}
+/* Responsive styling for image */
+.responsive-image {
+    max-width: 100%;     /* Ensure the image never exceeds the width of its container */
+    height: auto;        /* Keep the aspect ratio */
+}
+
+/* Optional: Add padding or spacing between text and image */
+.row {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+  .text-start {
+      text-align: center; /* Center text on smaller screens */
+      margin-bottom: 20px;
+  }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .content-area {
+        flex-direction: column; /* Stack the content vertically */
+    }
+    
+    .image-content img {
+        position: relative; /* Stop fixing the image on smaller screens */
+        width: 100%; /* Make the image take the full width */
+        height: auto; /* Maintain aspect ratio */
+        top: 0;
+        right: 0;
+    }
+}
+.underline{
+    border-bottom: 1px solid #CE796B;
+    border-bottom-width: thick;
+    width: 100%;
+    display: block;
+    }
+
+
+    /* Resizing dog image size */
+.image {
+  width: 580px;
+}
+/* Container for the review section */
+.reviews-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .review-card {
+    background-color: #E7AD99; /* Light background for the section */
+    border-radius: 50px; 
+    height: 380px;
+    width: 90%;
+    padding: 3rem;
+    
+  }
+
+
+
+
+  
+  /* Title for the review section */
+  .reviews-section h1 {
+    font-family: "Urbanist", sans-serif;
+    font-size: 3rem;
+    color: #fff;
+    font-weight: 300;
+    text-align: center;
+    color: #FDF0E7;
+  }
+
+  
+  /* Styling for individual reviews */
+  .reviews-container {
+    display: flex;
+    justify-content: space-around; /* Align reviews horizontally */
+    flex-wrap: wrap; /* Allow the reviews to wrap if needed */
+   
+    width: 90%;
+    margin: 20px auto;
+  
+  }
+
+  
+  .review {
+    width: 22%; /* Each review takes 22% of the  width */
+    margin-bottom: 20px; /* Spacing between reviews */
+    text-align: left;
+    color: #FFFFFF;
+    border-bottom: 0.2rem #ECC8AF solid;
+    border-radius: 2px;
+
+  }
+
+  .review > h3,.review > h4 {
+    font-family: "Urbanist", sans-serif;
+    font-size: 1rem;
+    color: #fff;
+    font-style: italic;
+    font-weight: 150;
+  }
+  
+  .review > p{
+    font-family: "Urbanist", sans-serif;
+    font-size: 20px;
+    color: #fff;
+  }
+  /* mAKE A REVIEW button styling - RANDOM style*/
+  .review-button {
+    font-family: "Urbanist", sans-serif;
+    font-size: 1.2rem;
+    color: #fff;
+    font-style: italic;
+    font-weight: 150;
+    display: block;
+    width: 150px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #CE796B;
+    color: white;
+    border: none;
+    border-radius: 8px;
+  }
+  
+  .review-button:hover {
+    background-color: #D29383; /* Darker shade on "mAKE REVIEW BUTTON" */
+  }
+
+  .hero-section{
+    display: flex;
+    height: 660px;
+    align-items: end;
+  }
+
+  .hero-container{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* .hero-container > * {
+    width: 400px;
+  } */

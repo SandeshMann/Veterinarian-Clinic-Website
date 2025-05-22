@@ -1,0 +1,45 @@
+name: Team-Project-Group-p09-05 CI tasks
+on:
+  push:
+    branches:
+      - main
+      - "release/**"
+      - "feature/**"
+      - "origin/**"
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Build with Maven
+        run: ./mvnw --batch-mode --update-snapshots package
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ASIA47CRVM7ZER5OJXF2
+          aws-secret-access-key: tzBl/TG9w0Cnizzj/jVnSJ2NrnZJuX40moDsQ7DU
+          aws-region: us-east-1
+          aws-session-token: FwoGZXIvYXdzEHYaDCL2UhChzVavQlAeTSLMAdGdigdKGeFsAg3g0s3GdYDkWh1p8us0E3O4kiwuCmi3mazcnK0iOeDmJJr4fnf+Mt/58mRnQy0b1sNL80qYdY9M9YiDOer9c6FJqfHPAnYu2sF6+7OqXwsi2x5As1PnWbqwun07/jBX0nWZOC12Oh9KqWIRD59SFNKtcru0I4ewDGEVPK7tdHJsrm1PMLn3sOExglS6k/FlrUf7HYdkUdHAwuwol5z/PXRcFyHNSgPhPtZV8CUlCsyxtRexwttK3e/OUkUCgxUdmCR5Iijp8K64BjIti7LsAqz7DenXc1oIQ0yiPRfaP8jLVw7Ym2pIYRvxe5WX7xxxb/ESt/OXd5MG
+
+      - name: Log in to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build Docker Image
+        run: |
+          docker build --platform linux/amd64 -t 891376986098.dkr.ecr.us-east-1.amazonaws.com/team-p09-05 -f Dockerfile .
+          IMAGE_TAG="891376986098.dkr.ecr.us-east-1.amazonaws.com/team-p09-05:$(date +%Y%m%d%H%M%S)"
+          echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
+          docker tag 891376986098.dkr.ecr.us-east-1.amazonaws.com/team-p09-05:latest "${IMAGE_TAG}"
+
+      - name: Push Docker Image to ECR
+        run: |
+          docker push "${IMAGE_TAG}"

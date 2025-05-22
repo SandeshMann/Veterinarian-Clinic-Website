@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sign Up</title>
+    <link th:href="@{/css/signup.css}" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="login_logout_nav">
+      <div th:replace="~{fragments/login_out_navbar :: login-logout-nav}"></div>
+    </div>
+    <div class="signup_page_container">
+      <div class="signup-container">
+        <p
+          class="succ-msg"
+          th:if="${userExistError}"
+          th:text="${userExistError}"
+        ></p>
+        <div class="signup-header">
+          <h2>
+            Welcome to <span><a th:href="@{/}">VetCare</a></span>
+          </h2>
+          <h1>Sign Up</h1>
+        </div>
+
+        <!-- Signup Form -->
+        <form
+          id="signup-form"
+          th:action="@{/signup}"
+          th:object="${user}"
+          method="post"
+        >
+          <div class="form-group mb-3">
+            <label for="firstName">First Name</label>
+            <input
+              type="text"
+              th:field="*{firstName}"
+              id="firstName"
+              class="form-input"
+              placeholder="Enter First Name"
+            />
+            <p class="error-message" id="firstName-error"></p>
+          </div>
+          <div class="form-group mb-3">
+            <label for="lastName">Last Name</label>
+            <input
+              type="text"
+              th:field="*{lastName}"
+              id="lastName"
+              class="form-input"
+              placeholder="Enter Last Name"
+            />
+            <p class="error-message" id="lastName-error"></p>
+          </div>
+
+          <div class="form-group" style="display: flex; flex-direction: column">
+            <label for="userLocation">Choose a suburb:</label>
+            <select
+              class="form-control"
+              id="userLocation"
+              style="background: #ce796b; color: white"
+              required
+              th:field="*{userLocation}"
+            >
+              <option
+                value=""
+                disabled
+                selected
+                style="color: #657381"
+              ></option>
+              <option value="37.686300,144.978415">
+                North Suburb (Postcode: Around 3000)
+              </option>
+              <option value="37.808035,144.802210">
+                West Suburb (Postcode: Around 3003)
+              </option>
+              <option value="37.832378,144.960434">
+                South Suburb (Postcode: Around 3206)
+              </option>
+              <option value="37.826759,145.057961">
+                East Suburb (Postcode: Around 3004)
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              th:field="*{email}"
+              id="email"
+              class="form-input"
+              placeholder="Enter Email"
+            />
+            <p class="error-message" id="email-error"></p>
+          </div>
+          <div class="form-group mb-3">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              th:field="*{password}"
+              id="password"
+              class="form-input"
+              placeholder="Enter Password"
+            />
+            <p class="error-message" id="password-error"></p>
+          </div>
+          <div class="form-group mb-3">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              class="form-input"
+              placeholder="Confirm Password"
+            />
+            <p class="error-message" id="confirmPassword-error"></p>
+          </div>
+
+          <button type="submit" class="btn signup-btn">Sign Up</button>
+        </form>
+
+        <div class="divider">
+          <hr class="text-secondary" />
+          <div class="divider-content">OR</div>
+        </div>
+
+        <div class="sign-btn-conatiner">
+          <p>Already have an account?</p>
+          <a th:href="@{/login}" class="signin-btn">Sign in</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link to external JavaScript file -->
+    <script th:src="@{/js/signup_validation.js}"></script>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<!-- <section th:fragment="myPets">
+    <h2>My Pets</h2>
+    <button class="register-pet">+ Register Pet</button>
+
+    <div class="pets-container">
+        <div class="pet-card">
+            <h3>Daisy</h3>
+            <p class="pet-type">Pet Type: Dog</p>
+            <button class="remove-button">Remove</button>
+        </div>
+        <div class="pet-card">
+            <h3>Rocko</h3>
+            <p class="pet-type">Pet Type: Dog</p>
+            <button class="remove-button">Remove</button>
+        </div>
+        <div class="pet-card">
+            <h3>Emmet</h3>
+            <p class="pet-type">Pet Type: Bird</p>
+            <button class="remove-button">Remove</button>
+        </div>
+        <div class="pet-card">
+            <h3>Bella</h3>
+            <p class="pet-type">Pet Type: Bird</p>
+            <button class="remove-button">Remove</button>
+        </div>
+         Add more pet cards as needed 
+    </div>
+</section>-->
+ 
+
+ <!-- myPets.html -->
+<div th:fragment="myPets">
+    <section class="pets-section">
+        <!-- Section Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>My Pets</h2>
+            <!-- Register Pet Button -->
+            <button class="register-pet" type="button" data-bs-toggle="modal" data-bs-target="#registerPetModal">
+                + Register Pet
+            </button>
+        </div>
+
+        <!--Container for Pet Cards-->
+         <div class="pets-container">
+            <div class="pet-card" th:each="pet : ${pets}">
+                <div class="pet-card-title">
+                    <h3 th:text="${pet.petName}">Pet Name</h3>
+
+                    <form th:action="@{/pet/delete}" method="post" onsubmit="reloadPage()">
+                        <!-- Pass the pet_id to identify which pet to delete -->
+                        <input type="hidden" name="petId" th:value="${pet.petId}">
+                        <!-- <button class="remove-button" th:onclick="'removePet(' + ${pet.petId} + ')'" type="button">Remove</button> -->
+                        <button type="submit" class="remove-button btn btn-danger">Remove</button>
+                    </form>
+                </div>
+                <div class="pet-card-info">
+                    <p class="pet-type pt-3" th:utext="'<strong>Pet Type:</strong> ' + ${pet.petType}">Pet Type</p>
+                    <p class="pet-breed pb-3" th:utext="'<strong>Pet Breed:</strong> ' + ${pet.petBreed}">Pet Breed</p>
+                </div>
+                <!-- <button class="remove-button" th:onclick="'removePet(' + ${pet.petId} + ')'" type="button">Remove</button> -->
+
+
+                 <!-- Form for deleting a pet -->
+                
+            </div>
+        </div>
+    
+
+ <!--Register pet MODEL-->
+    <div class="modal fade" id="registerPetModal" tabindex="-1" aria-labelledby="registerPetModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerPetModalLabel">Register a New Pet</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Register Pet Form -->
+                    <form action="/pet/register" method="post" onsubmit="reloadPage()">
+                        <div class="form-group mb-3">
+                            <!-- <label for="ownerId">Owner ID</label> -->
+                            <!-- <input type="number" id="ownerId" name="ownerId" class="form-control" th:value="${user.userId}" readonly required> -->
+                            <input type="hidden" id="ownerId" name="ownerId" th:value="${user.userId}">
+
+                            <!-- th:placeholder="Enter owner ID" required> -->
+                            <!--th:value="$(user.userId)"-->
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="petName">Pet Name</label>
+                            <input type="text" id="petName" name="petName" class="form-control" placeholder="Enter pet name" required>
+                        </div>
+                        <!-- <div class="form-group mb-3">
+                            <label for="petType">Pet Type</label>
+                            <input type="text" id="petType" name="petType" class="form-control" placeholder="Enter pet type (e.g., Bird, Cat, Dog, Fish)" required>
+                        </div> -->
+                        <div class="form-group mb-3">
+                            <label for="petType">Pet Type</label>
+                            <select id="petType" name="petType" class="form-control" required>
+                                <option value="">Select pet type</option>
+                                <option value="Bird">Bird</option>
+                                <option value="Cat">Cat</option>
+                                <option value="Dog">Dog</option>
+                                <option value="Fish">Fish</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="petBreed">Pet Breed</label>
+                            <input type="text" id="petBreed" name="petBreed" class="form-control" placeholder="Enter pet breed">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Register Pet</button>
+                        
+                    </form>
+                </div>
+            </div>
+        </div> 
+
+
+        <script>
+            function reloadPage() {
+                // Allow the form to submit, then reload the page
+                setTimeout(() => {
+                    location.reload();
+                }, 100); // Add a small delay to ensure form submission completes
+            }
+        </script>
+
+
+    </div>
+</div>

@@ -1,0 +1,79 @@
+/* General container styling for the article page */
+.container {
+    margin-bottom: 3rem;
+    font-family: "Urbanist", sans-serif;
+    background-color: #fff;
+    min-height: 75vh; 
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, 
+                rgba(17, 17, 26, 0.1) 0px 8px 24px, 
+                rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    display: flex;
+    flex-direction: column; 
+}
+
+/* Title styling */
+h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #495867;
+    margin-bottom: 1.5rem;
+}
+
+/* Text styling for descriptions and content */
+p {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* Styling for descriptors like date, type, and tags */
+.text-muted small {
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.text-muted {
+    margin-bottom: 1rem;
+}
+
+/* Flexbox container to push content up and keep the button at the bottom */
+.content {
+    flex: 1; /* This will push the content upwards */
+}
+
+/* Styling for the "Save" button container */
+.resource-page .btn-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: auto; /* Ensure it stays at the bottom */
+}
+
+/* Styling for the "Save" button */
+.resource-page .btn-primary {
+    background-color: #CE796B;
+    border: none;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+}
+
+.resource-page .btn-primary:hover {
+    background-color: #b36254;
+}
+
+/* Footer */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+}

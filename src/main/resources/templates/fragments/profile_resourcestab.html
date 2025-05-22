@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <div
+    class="tab-pane fade container mt-5"
+    th:fragment="resource_tab_frag"
+    role="tabpanel"
+    id="pills-resources"
+  >
+    <!-- Link to css-->
+    <link th:href="@{/css/profile.css}" rel="stylesheet" />
+
+    <!-- Resources Tab Content -->
+    <div>
+      <h1>Saved Resources</h1>
+      <table class="table table-striped appt-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Tag</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody th:each="savedResource : ${savedResources}">
+          <tr>
+            <td>
+              <!-- Make the title clickable and redirect to the resource.html page -->
+              <a
+                th:href="@{/resources/resource(resourceId=${savedResource.resource.resourceId})}"
+                class="custom-link"
+                th:text="${savedResource.resource.title}"
+              ></a>
+            </td>
+            <td th:text="${savedResource.resource.description}"></td>
+            <td th:text="${savedResource.resource.resourceType}"></td>
+            <td th:text="${savedResource.resource.tag}"></td>
+            <td>
+              <form
+                th:action="@{/savedresources/delete/{id}(id=${savedResource.savedResourcesId})}"
+                method="post"
+              >
+                <button
+                  class="btn btn-primary viewDetailsButton rp-btn"
+                  type="submit"
+                >
+                  Delete
+                </button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <script src="/js/profile_resources.js"></script> -->
+  </div>
+</html>

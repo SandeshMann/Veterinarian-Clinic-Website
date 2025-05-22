@@ -1,0 +1,330 @@
+/*Resource: Urbanist font from google fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+.modal {
+    --bs-modal-width: 800px;
+    font-family: "Urbanist", sans-serif;
+    --bs-modal-bg: #CE796B;
+    --bs-modal-color: white;
+}
+
+.modal-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 1.5rem;
+    height: 400px;
+    background: #CE796B;
+    border-radius: 5px;
+    position: relative;
+}
+
+.modal-content{
+    height:41rem;
+}
+
+.modal-container form {
+    width: 280px;
+    position: absolute;
+    left: 40px;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 5px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    border: 1px solid #ECC8AF;
+    background-color: #CE796B;
+    box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+    overflow-y: scroll;
+    direction: rtl;
+}
+
+.clinic-container {
+    overflow: scroll;
+    height: 20rem;
+    width: 100%;
+    padding: 0 1rem 0 1rem;
+
+}
+
+.clinic-item{
+    border-bottom: 1px solid #ECC8AF;
+    border-width: 80%;
+}
+
+.select-btn {
+    width: 120px;
+    border-radius: 1.5rem;
+    --bs-btn-color: #ECC8AF;
+    --bs-btn-bg: #CE796B;
+    --bs-btn-border-color: #ECC8AF;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #f7d0b5;
+    --bs-btn-hover-border-color: #ECC8AF;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #CE796B;
+    --bs-btn-active-border-color: #ECC8AF;
+}
+
+.select-btn.selected {
+    display: flex;
+    align-items: center;
+    background-color: #ECC8AF;
+    color: #ffffff;
+    box-shadow: 0 0 2px #e98b7d
+}
+
+
+.appt-tab {
+    display: none;
+    width: 80%;
+
+}
+
+.appt-tab > h4 {
+    color: white;
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+
+
+.progress-body {
+    padding-top:1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.progress-container .steps {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.steps .circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    color: #ECC8AF;
+    font-size: 22px;
+    font-weight: 500;
+    border-radius: 50%;
+    background: #CE796B;
+    border: 2px solid #ECC8AF;
+    transition: all 200ms ease;
+    transition-delay: 0s;
+    z-index: 1;
+}
+
+.steps .circle.active {
+    transition-delay: 100ms;
+    color: #CE796B;
+    background: #ECC8AF;
+}
+
+.steps .progress-bar {
+    position: absolute;
+    height: 4px;
+    width: 100%;
+    background: #cca990;
+}
+
+.progress-bar .indicator {
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    background: #ECC8AF;
+    transition: all 300ms ease;
+}
+
+
+.pay-type-tab {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 1px solid #ECC8AF;
+    border-radius: .5rem;
+}
+
+.pay-type-tab button {
+    color: white;
+    font-size: large;
+    width: 50%;
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    border-radius: .3rem;
+}
+
+.pay-type-tab button:hover {
+    background-color: #ffd8bd;
+    color: white;
+}
+
+.pay-type-tab button.active {
+    background-color: #ECC8AF;
+    color: white;
+}
+
+.pay-type-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tabcontent {
+    display: none;
+}
+
+.booked-input > p{
+    color: white;
+    font-size: 1rem;
+}
+
+.pet-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pet-select>* {
+    width: 40%;
+}
+
+
+.pet-consult-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.ph-check-circle {
+    margin-left: .5rem;
+    font-size: 1.4rem;
+}
+
+#prevBtn,
+#nextBtn {
+    width: 100px;
+    margin-left: 1rem;
+}
+
+#nextBtn {
+    margin-left: 1rem;
+    --bs-btn-color: #CE796B;
+    --bs-btn-bg: #ECC8AF;
+    --bs-btn-border-color: #CE796B;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #f7d0b5;
+    --bs-btn-hover-border-color: #CE796B;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #ECC8AF;
+    --bs-btn-active-border-color: #CE796B;
+}
+
+#nextBtn:disabled {
+    background-color: #d7d9db;
+    border-color: #b0b0b0;
+    color: #888;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+#prevBtn {
+    --bs-btn-color: #ECC8AF;
+    --bs-btn-bg: #CE796B;
+    --bs-btn-border-color: #ECC8AF;
+    ;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #CE796B;
+    --bs-btn-hover-border-color: #f6decc;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #CE796B;
+    --bs-btn-active-border-color: #ECC8AF;
+}
+
+.form-select:disabled {
+    background-color: #d7d9db;
+}
+
+#p-inperson > p{
+    color: white;
+    font-size: 1rem;
+}
+
+.time-slot-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Two rows, four columns */
+    gap: 10px;
+    padding: 20px;
+}
+
+.select-time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --bs-btn-color: #ECC8AF;
+    --bs-btn-bg: #CE796B;
+    --bs-btn-border-color: #ECC8AF;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #f7d0b5;
+    --bs-btn-hover-border-color: #ECC8AF;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #CE796B;
+    --bs-btn-active-border-color: #ECC8AF;
+    padding: 10px;
+    width: 125px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+.select-time:hover {
+    background-color: #e0e0e0;
+}
+
+.time-slot input {
+    display: none;
+}
+
+.select-time.selected {
+    background-color: #ECC8AF;
+    color: #ffffff;
+    box-shadow: 0 0 2px #e98b7d
+}
+
+.time-slot.selected {
+    border-color: #ECC8AF;
+    color: #ffffff;
+    box-shadow: 0 0 2px #e98b7d
+}

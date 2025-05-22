@@ -1,0 +1,74 @@
+/*Resource: Urbanist font from google fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+#pet-advice {
+    width: 100%;
+    margin: 6rem 0 6rem 0;
+    padding-right: 4rem;
+    padding-left: 4rem;
+}
+
+
+#pet-advice h2 {
+    font-family: "Urbanist", sans-serif;
+    font-size: 2.5rem;
+    color: #495867;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.advice-cards {
+    display: flex;
+    justify-content: space-between;
+}
+
+.advice-card {
+    width: 30%;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.advice-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+
+.advice-card .article_date {
+    font-family: "Urbanist", sans-serif;
+    font-size: 20px;
+    color: #CE796B;
+    font-style: italic;
+    font-weight: 100;
+    padding: 10px 10px 0 10px;
+}
+.advice-card h3 {
+    font-family: "Urbanist", sans-serif;
+    font-size: 1.3rem;
+    color: #495867;
+    font-weight: 400;
+    padding: 0 10px 0 10px;
+}
+
+.advice-card .article_p {
+    font-family: "Urbanist", sans-serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    font-weight: 200;
+    color: #495867;
+    padding:10px;
+
+}
+
+.advice-card a {
+    font-family: "Urbanist", sans-serif;
+    font-size: 1.15rem;
+    color: #495867;
+    font-style: italic;
+    font-weight: 100;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 0 10px 0 10px;
+}

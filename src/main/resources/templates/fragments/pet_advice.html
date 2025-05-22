@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <link th:href="@{/css/pet_advice.css}" rel="stylesheet" />
+
+  <section th:fragment="pet_advice_frag" id="pet-advice">
+    <h2>Pet Advice</h2>
+    <div class="advice-cards">
+      <div class="advice-card">
+        <img src="/images/img01.png" alt="Dog photo" />
+        <p class="article_date">April 20, 2024</p>
+        <h3>Proper nutrition and Dog Health</h3>
+        <p class="article_p">
+          Proper nutrition is the cornerstone of your dog's health and
+          well-being. With so many...
+        </p>
+        <a href="#">Read More →</a>
+      </div>
+      <div class="advice-card">
+        <img src="/images/img02.png" alt="Pets and anxiety" />
+        <p class="article_date">January 2, 2024</p>
+        <h3>Pets and anxiety</h3>
+        <p class="article_p">
+          Just like humans, pets can experience anxiety that affects their daily
+          lives. Whether...
+        </p>
+        <a href="#">Read More →</a>
+      </div>
+      <div class="advice-card">
+        <img src="/images/img01.png" alt="Indoor pets" />
+        <p class="article_date">February 9, 2024</p>
+        <h3>Creating a Safe Environment for Your Indoor Pets</h3>
+        <p class="article_p">
+          Whether you have a curious cat, a playful rabbit, or a small bird,
+          creating a safe and secure...
+        </p>
+        <a href="#">Read More →</a>
+      </div>
+    </div>
+  </section>
+</html>

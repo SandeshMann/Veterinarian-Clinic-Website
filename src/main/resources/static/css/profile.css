@@ -1,0 +1,400 @@
+/*Resource: We acknowledge that Urbanist font is used from google fonts*/
+/* https://fonts.google.com/specimen/Urbanist?query=urbanist */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+
+body {
+    margin: 0 auto;
+    padding: 0;
+}
+.profile_page_container {
+    width: 100%;
+}
+
+.profile-container {
+    font-family: "Urbanist", sans-serif;
+    width: 80%;
+    margin: 0 auto; /* Centers the container horizontally */
+    padding: 2rem 0; /* Adds some padding to create space */
+}
+
+.profile_page_container {
+    min-height: calc(100vh - 170px); /* Adjusts height to take up the viewport minus the footer height */
+    background-color: #ecc8af;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#profile-nav {
+    margin-top: 1.5rem;
+    border-bottom: 2px #495867 solid;
+}
+.profile-sec-nav {
+    width: 80%;
+    margin-left: 2rem;
+    margin-bottom: 0.3rem;
+}
+
+
+.inline-list {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    width: 80%; 
+    padding: 0;
+    margin: 0;
+}
+
+.inline-list li {
+    list-style: none;
+}
+
+.inline-list li button:focus {
+    outline: none; /* Remove focus outline */
+    box-shadow: none; /* Remove any shadow on focus */
+    background-color: transparent; /* Ensure no background color is applied */
+}
+
+.inline-list li button:focus-visible {
+    outline: none; /* Remove visible focus outline */
+    box-shadow: none; /* Ensure no shadow on focus-visible */
+}
+
+.inline-list li, .inline-list li button {
+    font-family: "Urbanist", sans-serif;
+    color: #495867;
+    font-size: 1rem;
+    font-weight: 400;
+    text-decoration: none;
+    background: none; /* Remove button background */
+    border: none; /* Remove button border */
+    padding: 0; /* Remove button padding */
+}
+/* Remove background color and keep the text color consistent across states */
+.nav-link {
+    color: #495867; /* Ensure default color */
+    background-color: transparent; /* Ensure background stays transparent */
+}
+
+/* Remove blue background on active and focus */
+.nav-link.active, 
+.nav-link:focus, 
+.nav-link:active {
+    background-color: transparent !important; /* Force background to stay transparent */
+    color: #495867 !important; /* Force color to stay consistent */
+    border: none; /* Remove border */
+    box-shadow: none; /* Remove any focus shadow */
+    font-weight: bold; /* Keep font-weight */
+}
+
+/* Handle hover state */
+.nav-link:hover {
+    background-color: transparent; /* Ensure no background on hover */
+    color: #495867; /* Keep hover color consistent */
+}
+
+
+
+
+/* profile body css */
+  
+  .profile-body {
+    width: 100%;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .profile-body h1 {
+    font-size: 2.5rem;
+    color: #495867;
+    margin-bottom: 1.25rem;
+  }
+  
+  .profile-content-container {
+    font-family: "Urbanist", sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+
+.form-group label {
+    font-style: italic;
+    font-weight: 400;
+    color: #495867;
+    margin-bottom: 0.25rem;
+}
+
+.profile-form {
+    width: 48%;
+}
+ .form-group 
+input[type="text"],
+input[type="email"],
+input[type="password"]{
+
+    width: 100%;
+    background-color: transparent;
+    border-color: #495867;
+    color: #495867;
+}
+
+
+/* Appointment Table */
+.form-input
+{
+    font-style: italic;
+    font-weight: 200;
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495867;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 2px solid #495867;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+} 
+
+.edit-btn {
+    background-color: #495867;
+    color: #ECC8AF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.cancel-btn {
+    background-color: #CE796B;
+    color: #ECC8AF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+} 
+
+
+
+
+.app-sec {
+    color: #495867;
+    font-family: "Urbanist", sans-serif;
+    width: 35%;
+    
+}
+
+.list-of-appointments {
+    border: 2px solid #CE796B;
+    border-radius: 8px;
+    height: 32vh;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.appointment {
+    background-color: transparent;
+    padding: 0.25rem 0; /* Add some vertical padding */
+    text-align: center; /* Center-align text horizontally */
+    display: flex; /* Flexbox for better alignment */
+    justify-content: center; /* Horizontally center items */
+    align-items: center; /* Vertically center items */
+    padding-bottom: 0.5rem; /* Space between text and underline */
+}
+
+.appointment p {
+    font-family: "Urbanist", sans-serif;
+    font-size: 1rem;
+    margin: 0;
+    border-bottom: 1px solid #CE796B; /* Add a small underline */
+    width: auto; /* Prevent underline from stretching */
+    padding-bottom: 0.15rem; /* Space between text and underline */
+}
+
+
+.app-sec h1 {
+    font-family: "Urbanist", sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+
+.appt-tab-container{
+    padding: 0 4rem 0 4rem;   
+}
+
+.script-tab-container {
+    max-width: 100%; 
+}
+
+.appt-table{
+    --bs-table-bg: #ECC8AF;
+    --bs-table-striped-bg: #E7AD99;
+    border-color: rgba(73, 88, 103, 0.4);
+    flex-grow: 1;
+}
+
+.appt-table tbody {
+    flex-grow: 1;
+}
+
+.appt-table tbody tr.empty-row {
+height: 100%; 
+}
+
+.appt-table > tbody > tr > td > button{
+    margin: 0 .25rem 0 .25rem;
+}
+
+.rp-btn{
+    --bs-btn-color: #ECC8AF;
+    --bs-btn-bg: #CE796B;
+    --bs-btn-border-color: #CE796B;
+    --bs-btn-hover-color: #ECC8AF;
+    --bs-btn-hover-bg: #d87f71;
+    --bs-btn-hover-border-color: #d87f71;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #ECC8AF;
+    --bs-btn-active-bg: #CE796B;
+    --bs-btn-active-border-color: #CE796B;
+    --bs-btn-disabled-bg: #9E695F;
+    --bs-btn-disabled-border-color: #9E695F;
+    --bs-btn-disabled-color: #cbab94;
+} 
+
+.cancel-appt-btn{
+    --bs-btn-color: #ECC8AF;
+    --bs-btn-bg: #495867;
+    --bs-btn-border-color: #495867;
+    --bs-btn-hover-color: #ECC8AF;
+    --bs-btn-hover-bg: #4f5f6f;
+    --bs-btn-hover-border-color: #d87f71;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #ECC8AF;
+    --bs-btn-active-bg: #495867;
+    --bs-btn-active-border-color: #495867;
+    --bs-btn-disabled-bg: #5E585D;
+    --bs-btn-disabled-border-color: #5E585D;
+    --bs-btn-disabled-color: #cbab94;
+} 
+
+.payment-appt-btn{
+    --bs-btn-color: #ECC8AF;
+    --bs-btn-bg: #495867;
+    --bs-btn-border-color: #495867;
+    --bs-btn-hover-color: #ECC8AF;
+    --bs-btn-hover-bg: #4f5f6f;
+    --bs-btn-hover-border-color: #d87f71;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #ECC8AF;
+    --bs-btn-active-bg: #495867;
+    --bs-btn-active-border-color: #495867;
+    --bs-btn-disabled-bg: #5E585D;
+    --bs-btn-disabled-border-color: #5E585D;
+    --bs-btn-disabled-color: #cbab94;
+} 
+
+/* Modals */
+.cancel-modal {
+    --bs-modal-width: 450px !important;
+}
+
+.cancel-content {
+    height: 200px !important;
+}
+
+/* Prescription Tab */
+.script-card {
+    border: 3px solid #CE796B;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    color: #495867 !important;
+}
+
+.med-name {
+    color: #494949;
+}
+
+.info-container {
+    background-color: #E7AD99;
+    border-radius: 0.5rem;
+    height: 25rem;
+    overflow: scroll;
+}
+
+.info-container::-webkit-scrollbar-thumb {
+    min-height: 20px;
+}
+
+
+
+.refill-btn {
+    background-color: #CE796B;
+    color: #ECC8AF;
+    border: none;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    --bs-btn-hover-color: #ECC8AF;
+    --bs-btn-hover-bg: #d87f71;
+    --bs-btn-hover-border-color: #d87f71;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #ECC8AF;
+    --bs-btn-active-bg: #CE796B;
+    --bs-btn-active-border-color: #CE796B;
+    --bs-btn-disabled-bg: #9E695F;
+    --bs-btn-disabled-border-color: #9E695F;
+    --bs-btn-disabled-color: #cbab94;
+}
+
+div.mb-4 {
+    margin-bottom: 0 !important;
+}
+
+
+
+
+.script-btns {
+    width: 8rem !important;
+}
+
+.track-btn {
+    background-color: #495867;
+    color: #ECC8AF;
+    border: none;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    --bs-btn-hover-color: #ECC8AF;
+    --bs-btn-hover-bg: #635755;
+    --bs-btn-hover-border-color: #635755;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #ECC8AF;
+    --bs-btn-active-bg: #495867;
+    --bs-btn-active-border-color: #495867;
+}
+
+
+.custom-link {
+    color: #495867; 
+    text-decoration: none; 
+    font-weight: 600; 
+}
+
+.custom-link:hover {
+    color: #b36254; 
+    text-decoration: underline; 
+}

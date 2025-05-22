@@ -1,0 +1,156 @@
+/*Resource: We acknowledge that Urbanist font is used from google fonts*/
+/* https://fonts.google.com/specimen/Urbanist?query=urbanist */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+
+.pres-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pres-content-container {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+
+.form-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-col {
+    flex: 1;
+    margin-right: 15px;
+}
+
+.form-col:last-child {
+    margin-right: 0;
+}
+
+.form-label {
+    font-family: "Urbanist", sans-serif;
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.select-options {
+    font-family: "Urbanist", sans-serif;
+    background-color: transparent;
+    color: #495867;
+    display: block;
+    width: 100%;
+    padding: .375rem 2.25rem .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    background-size: 16px 12px;
+    border: 2px solid #495867;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.select-options option:hover{
+    background-color: #CE796B;
+    color: #495867;
+}
+
+/* Select options  style*/
+.form-textarea {
+    font-family: "Urbanist", sans-serif;
+    font-style: italic;
+    font-weight: 200;
+    display: block;
+    width: 33%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495867;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 2px solid #495867;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.form-textarea:focus {
+    outline: none;
+}
+.form-input{
+    font-family: "Urbanist", sans-serif;
+    font-style: italic;
+    font-weight: 200;
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495867;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 2px solid #495867;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.form-input:focus {
+    outline: none;
+}
+ 
+
+.buttons-row {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    flex-direction: column; /* Stack label and textarea vertically */
+    align-items: center; /* Align label and textarea horizontally in the center */
+}
+.btn {
+    font-family: "Urbanist", sans-serif;
+    padding: 12px 22px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.edit-btn {
+    background-color: #CE796B;
+    color: #ECC8AF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.cancel-btn  {
+    background-color: #495867;
+    color: #ECC8AF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}

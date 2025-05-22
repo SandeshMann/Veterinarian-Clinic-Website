@@ -1,0 +1,323 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <link th:href="@{/css/track_precscription.css}" rel="stylesheet" />
+  <div
+    class="tab-pane fade container mt-5 script-tab-container"
+    th:fragment="script_tab_frag"
+    role="tabpanel"
+    id="pills-prescription"
+  >
+    <!-- Prescriptions Tab Content -->
+    <div class="mb-4 p-3 " style="display: flex; justify-content: space-between; color: #495867;">
+        <h2 class="mt-3">Prescriptions</h2>
+        <button
+          class="btn btn-primary rp-btn mt-3" id="add-prescription-btn">
+          + Add Prescription
+        </button>
+      </div>
+
+    <div class="script-container" id="view-prescriptions">
+        <div class="row row-cols-3">
+
+            <!-- Conditional block to display the "No prescriptions available" message -->
+            <div th:if="${infoMsg}" class="alert alert-info" role="alert">
+                <p th:text="${infoMsg}"></p>
+            </div>
+
+            <!-- Loop through the prescriptions list -->
+            <div class="col p-3" th:each="prescription : ${prescriptions}">
+                
+                <div class="script-card">
+                    <div class="card-body p-3">
+                        <div class="script-title">
+                            <div>
+                                <h2>Pet: <span th:text="${prescription.pet.petName}"></span></h2>
+                                <h3 class="med-name"><b th:text="${prescription.prescriptionName}"></b></h3>
+                            </div>
+                            <div class="script-title-btn-grp">
+                                <button 
+                                  type="button"
+                                  class="btn btn-primary refill-btn script-btns"
+                                  th:onclick="'setPrescriptionId(' + ${prescription.getPrescriptionId()} + ')'"
+                                  th:text="${prescription.paid == 1} ? 'Requested' : 'Request Refill'"
+                                  th:disabled="${prescription.paid == 1}"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#payScriptModal"
+                                >
+                                    Request Refill
+                                </button>
+                                <button
+                                    type="button" 
+                                    class="btn btn-secondary track-btn script-btns" 
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#trackModal"
+                                    th:if="${prescription.paid == 1}"
+                                    th:onclick="'setCurrentStep('+ ${prescription.getArrivalCountDown()} + ')'"
+        
+                                >
+                                <!-- Change th:if if prescription is paid-->
+                                    Track
+                                </button>
+              
+                            </div>
+                        </div>
+                        
+                        <div class="info-container p-4">
+                            <div class="purpose">
+                                <b>Clinic:</b>
+                                <p th:text="${prescription.clinic.clinicName}"></p>
+                            </div>
+                            <div class="expiry">
+                                <b>Expiry Date:</b>
+                                <p th:text="${prescription.expiryDate}"></p>
+                            </div>
+                            <div class="purpose">
+                                <b>Purpose:</b>
+                                <p th:text="${prescription.purpose}"></p>
+                            </div>
+                            <div class="dosage">
+                                <b>Dosage:</b>
+                                <p th:text="${prescription.dosage}"></p>
+                            </div>
+                            <div class="duration">
+                                <b>Duration:</b>
+                                <p th:text="${prescription.duration}"></p>
+                            </div>
+                            <div class="instructions">
+                                <b>Instructions:</b>
+                                <p th:text="${prescription.instructions}"></p>
+                            </div>
+                            
+                        </div>
+                        <form th:action="@{/prescriptions/delete/{id}(id=${prescription.prescriptionId})}" method="post" style="padding:10px;display: flex;
+    justify-content: end;">
+                          <button type="submit" class="btn btn-primary refill-btn" style="">Delete</button>
+                      </form>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+
+    <div class="pres-container" id="add-prescription-form" style="display: none;">
+        <div class="pres-content-container">
+            <h2 class="form-title">Add New Prescription</h2>
+            <!-- Check if pets list is empty and show message -->
+            <div th:if="${pets == null or pets.isEmpty()}" class="alert alert-warning">
+                <p>You have no registered pets. Please register a pet before adding a prescription.</p>
+            </div>
+            <form action="/add" method="post">
+                <div class="form-row">
+                    <!-- Dropdown for Pet Selection -->
+                    <div class="form-col">
+                        <label for="petSelect" class="form-label">Select Pet</label>
+                        <select id="petSelect" name="petId" class="select-options" required>
+                            <option value="">Choose Pet</option>
+                            <th:block th:each="pet : ${pets}">
+                                <option th:value="${pet.petId}" th:text="${pet.petName}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+        
+                    <!-- Dropdown for Clinic Selection -->
+                    <div class="form-col">
+                        <label for="clinicSelect" class="form-label">Select Clinic</label>
+                        <select id="clinicSelect" name="clinicId" class="select-options" required>
+                            <option value="">Choose Clinic</option>
+                            <!-- Loop through the list of clinics from the model -->
+                            <th:block th:each="clinic : ${clinics}">
+                                <option th:value="${clinic.clinicId}" th:text="${clinic.clinicName}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+    
+                    <!-- Prescription Name -->
+                    <div class="form-col">
+                        <label for="prescriptionName" class="form-label">Prescription Name</label>
+                        <input type="text" class="form-input" id="prescriptionName" name="prescriptionName" placeholder="Enter prescription name" required>
+                    </div>
+                </div>
+    
+                <div class="form-row">
+                    <!-- Purpose -->
+                    <div class="form-col">
+                        <label for="purpose" class="form-label">Purpose</label>
+                        <textarea class="form-input" id="purpose" name="purpose" rows="3" placeholder="Enter purpose" required></textarea>
+                    </div>
+    
+                    <!-- Dosage -->
+                    <div class="form-col">
+                        <label for="dosage" class="form-label">Dosage</label>
+                        <input type="text" class="form-input" id="dosage" name="dosage" placeholder="Enter dosage" required>
+                    </div>
+    
+                    <!-- Duration -->
+                    <div class="form-col">
+                        <label for="duration" class="form-label">Duration</label>
+                        <input type="text" class="form-input" id="duration" name="duration" placeholder="Enter duration" required>
+                    </div>
+                </div>
+    
+                <div class="form-row form-textarea-row">
+                    <!-- Instructions -->
+                    <div class="form-col">
+                        <label for="instructions" class="form-label">Instructions</label>
+                        <textarea class="form-textarea" id="instructions" name="instructions" rows="3" placeholder="Enter instructions" required></textarea>
+                    </div>
+                </div>
+                
+                <!-- Submit and Cancel Buttons -->
+                <div class="form-row buttons-row">
+                    <div class="form-col">
+                        <button type="submit" class="edit-btn">Save</button>
+                        <button type="button" id="cancel-presc-btn" class="btn btn-secondary cancel-btn">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tracking Modal -->
+    <div class="modal fade track-modal" id="trackModal" tabindex="-1" aria-labelledby="trackModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content track-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="trackModalLabel">Track your Prescription</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <h3 class="track-title">Your order is on it's way!</h3>
+                    <!-- Progress Bar (CSS still in appt_modal.css) -->
+                    <div class="track-progress-body">
+                        <div class="track-progress-container">
+                            <div class="track-steps">
+                                  <span class="track-circle active">1</span>
+                                  <span class="track-circle">2</span>
+                                  <span class="track-circle">3</span>
+                                  <span class="track-circle">4</span>
+                                  <div class="track-progress-bar">
+                                  <span class="track-indicator"></span>
+                              </div>
+                            </div>
+                            <div class="delivery-labels">
+                                <span class="delivery-step">Processing Order</span>
+                                <span class="delivery-step">Shipped</span>
+                                <span class="delivery-step">Out for Delivery</span>
+                                <span class="delivery-step">Delivered</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        
+                        <div class="estimated-date">
+                            <b>Your prescription should be delivered in approximately 7 days from when you purchased it!</b>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <form class="needs-validation" id="paymentForm">
+        <div
+          class="modal fade"
+          id="payScriptModal"
+          tabindex="-1"
+          aria-labelledby="payScriptModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content" style="height: 500px">
+              <div class="modal-header">
+                <h5 class="modal-title" id="payScriptModalLabel">
+                  Pay for your Prescription
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+      
+              <div class="modal-body">
+                <div class="payment-tab">
+                  <div id="p-online" style="padding: 1rem">
+                    <div class="mb-3">
+                      <label for="cardNumberScript" class="form-label">Card Number</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="cardNumberScript"
+                        placeholder="e.g. 1111 2222 3333 4444"
+                        required
+                      />
+                    </div>
+      
+                    <div>
+                      <label for="cardholderNameScript" class="form-label"
+                        >Cardholder Name</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="cardholderNameScript"
+                        placeholder="e.g. John Doe"
+                        required
+                      />
+                    </div>
+      
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <label for="expiryDateScript" class="form-label">Expiration Date</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="expiryDateScript"
+                          placeholder="MM/YY"
+                          required
+                        />
+                      </div>
+      
+                      <div class="col-md-6 mb-3">
+                        <label for="cvvScript" class="form-label">CVV</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="cvvScript"
+                          placeholder="e.g. 123"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="modal-footer">
+                <button
+                  type="submit"
+                  class="payment-appt-btn btn btn-primary"
+                  id="payNowBtnScript"
+                  onclick="prescriptionPaid()"
+                  disabled
+                >
+                  Pay Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    
+  </div>
+  </div>
+
+  <script th:src="@{/js/prescription.js}"></script>
+  <script th:src="@{/js/tracking.js}"></script>
+</html>

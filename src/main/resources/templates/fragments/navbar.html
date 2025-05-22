@@ -1,0 +1,58 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <nav
+    class="navbar navbar-expand-lg navbar-light bg-light"
+    style="--bs-navbar-padding-y: 0"
+    th:fragment="navbar"
+  >
+    <div style="background-color: #ce796b" class="container-fluid">
+      <a style="color: #ecc8af; font-size:25px" class="navbar-brand" href="/">VetCare</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"></li>
+            <a style="color: #ecc8af" class="nav-link" th:href="@{/}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a style="color: #ecc8af" class="nav-link" th:href="@{/resources}">Resources</a>
+          </li>
+          <li class="nav-item">
+            <a
+              style="color: #ecc8af"
+              class="nav-link"
+              href="#"
+              data-bs-toggle="modal"
+              th:attr="data-bs-target=${user != null} ? '#myModal' : '#loginModal'"
+              >Bookings</a
+            >
+          </li>
+          <li class="nav-item">
+            <!-- Account icon with custom image -->
+            <a class="nav-link" href="/profile" aria-label="Account" th:if="${user != null}">
+              <img
+                src="/images/Icon-color.png"
+                alt="Account Icon"
+                style="width: 30px; height: 30px"
+              />
+            </a>
+
+            <a style="color: #ecc8af" class="nav-link" href="/login" aria-label="Account" th:if="${user == null}">
+              Sign in
+            </a>
+
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</html>

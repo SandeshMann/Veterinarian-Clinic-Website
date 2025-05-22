@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Log In</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="login_logout_nav">
+      <div th:replace="~{fragments/login_out_navbar :: login-logout-nav}"></div>
+    </div>
+    <div class="login_page_container">
+      <div class="login-container">
+        <p th:if="${param.error}" class="succ-msg">
+          Invalid username or password.
+        </p>
+        <p class="succ-msg" th:if="${successMsg}" th:text="${successMsg}"></p>
+        <div class="login-header">
+          <h1>Sign In</h1>
+        </div>
+
+        <!-- login Form -->
+        <form
+          id="login-form"
+          onsubmit="return validateForm(event)"
+          th:action="@{/login}"
+          method="post"
+        >
+          <div class="form-group mb-3">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="username"
+              class="form-input"
+              placeholder="Enter Email"
+            />
+            <p class="error-message" id="email-error"></p>
+          </div>
+          <div class="form-group mb-3">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-input"
+              placeholder="Enter Password"
+            />
+            <p class="error-message" id="password-error"></p>
+          </div>
+
+          <div class="form-btn">
+            <button type="submit" class="btn signup-btn">Login</button>
+          </div>
+        </form>
+
+        <div class="divider">
+          <hr class="text-secondary" />
+          <div class="divider-content">OR</div>
+        </div>
+
+        <div class="sign-btn-conatiner">
+          <p>Don't have an account?</p>
+          <a th:href="@{/signup}" class="signin-btn">Sign Up</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link to external JavaScript file -->
+    <script th:src="@{/js/login_validation.js}"></script>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <div class="tab-content" id="pills-tabContent" th:fragment="profiletab">
+    <div
+      class="tab-pane fade show active"
+      id="pills-profile"
+      role="tabpanel"
+      aria-labelledby="pills-profile-tab"
+    >
+      <h1 style="padding: 1rem">Your Profile</h1>
+      <div class="profile-container">
+        <div class="edit-container">
+          <h2>Registration Form</h2>
+          <form action="/submit-form" method="post">
+            <!-- Name input -->
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                required
+              />
+            </div>
+
+            <!-- Email input -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                required
+              />
+            </div>
+
+            <!-- Password input -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                required
+              />
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+
+        <div class="upcoming-appts-container">
+          <h2 class="p-2">Upcoming Appointments</h2>
+          <div class="appt-list-container">
+            <div th:each="appt : ${appts}">
+              <div>
+                <h3
+                  th:text="${appt.getPet().getPetName()} + ' @ ' + ${appt.appointmentDate} + ' - ' + ${appt.getClinic().getClinicName()}"
+                >
+                  Appointment Details
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>

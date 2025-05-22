@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout.html}"
+>
+  <head>
+    <link
+      th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"
+      rel="stylesheet"
+    />
+    <link th:href="@{/css/app.css}" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/add_prescription.css}" />
+    <script
+      th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"
+      defer
+    ></script>
+    <script th:src="@{/js/app.js}" defer></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+
+    <link th:href="@{/css/footer.css}" rel="stylesheet" />
+    <link th:href="@{/css/profile.css}" rel="stylesheet" />
+    <link th:href="@{/css/appt_modal.css}" rel="stylesheet" />
+    <link th:href="@{/css/track_prescription.css}" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+    />
+
+    <link th:href="@{/css/myPets.css}" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="profile_page_container">
+      <div class="prim-nav">
+        <div id="navbar">
+          <div th:replace="~{fragments/navbar :: navbar}"></div>
+        </div>
+      </div>
+      <!-- Booking Modal -->
+      <div th:replace="~{fragments/appt_modal :: appt_modal_frag}"></div>
+
+      <div class="profile-container">
+        <div id="profile-nav">
+          <nav class="profile-sec-nav">
+            <ul class="inline-list nav nav-pills">
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="pills-profile-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-profile"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-profile"
+                  aria-selected="true"
+                  data-tab="pills-profile"
+                >
+                  Profile
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="pills-mypet-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-mypet"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-mypet"
+                  aria-selected="false"
+                  data-tab="pills-mypet"
+                >
+                  My Pets
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="pills-appointment-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-appointment"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-appointment"
+                  aria-selected="false"
+                  data-tab="pills-appointment"
+                >
+                  Appointment
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="pills-medr-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-medicalr"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-medicalr"
+                  aria-selected="false"
+                  data-tab="pills-medicalr"
+                >
+                  Medical Records
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="pills-prescription-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-prescription"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-prescription"
+                  aria-selected="false"
+                  data-tab="pills-prescription"
+                >
+                  Prescriptions
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  id="pills-resources-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-resources"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-resources"
+                  aria-selected="false"
+                  data-tab="pills-resources"
+                >
+                  Your Resources
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="tab-content">
+          <div>
+            <h1 th:if="${user == null}">Please sign in to see your details</h1>
+          </div>
+          <!-- Profile Tab -->
+          <div
+            class="tab-pane fade show active profile-body"
+            id="pills-profile"
+            role="tabpanel"
+            aria-labelledby="pills-profile-tab"
+          >
+            <h1>Your Profile</h1>
+            <div class="profile-content-container">
+              <form
+                id="profileForm"
+                class="profile-form"
+                th:action="@{/update}"
+                th:object="${user}"
+                method="post"
+              >
+                <div class="form-group mb-3">
+                  <label for="Name">Name:</label>
+                  <input
+                    type="text"
+                    id="nameInput"
+                    th:field="*{firstName}"
+                    th:value="${user.firstName != null ? user.firstName : ''}"
+                    class="form-input"
+                    placeholder="Enter Your Name"
+                    disabled
+                  />
+                  <p class="error-message"></p>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="email">Email Address:</label>
+                  <input
+                    type="email"
+                    id="emailInput"
+                    th:value="${user.email}"
+                    class="form-input"
+                    placeholder="Enter Email"
+                    disabled
+                  />
+                  <p class="error-message"></p>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="password">Password:</label>
+                  <input
+                    type="password"
+                    id="passwordInput"
+                    th:field="*{password}"
+                    th:value="${user.password}"
+                    class="form-input"
+                    placeholder="Enter Password"
+                    disabled
+                  />
+                  <p class="error-message"></p>
+                </div>
+                <div class="form-buttons">
+                  <div>
+                    <button class="edit-btn" id="editButton">Edit</button>
+                    <button
+                      type="submit"
+                      class="edit-btn"
+                      id="confirmButton"
+                      style="display: none"
+                    >
+                      Confirm
+                    </button>
+                    <a
+                      th:href="@{/profile}"
+                      type="button"
+                      id="cancelButton"
+                      style="display: none"
+                      class="cancel-btn"
+                      >Cancel</a
+                    >
+                  </div>
+                  <a th:href="@{/logout}" type="button" class="cancel-btn"
+                    >Logout</a
+                  >
+                </div>
+              </form>
+              <div class="app-sec">
+                <h1>Upcoming Appointment</h1>
+                <div class="list-of-appointments">
+                  <!-- Loop through each appointment -->
+                  <!-- Check if upcoming appointment list is empty and show message -->
+                  <div
+                    th:if="${upcomingAppointments == null or upcomingAppointments.isEmpty()}"
+                    class="appointment"
+                  >
+                    <p>You have no upcoming appointments</p>
+                  </div>
+                  <div th:each="appointment : ${upcomingAppointments}">
+                    <div class="appointment">
+                      <!-- Display appointment details (adjust field names as per your Appointment class) -->
+                      <p
+                        th:text="${appointment.getPatient.FirstName} +' @ ' + ${appointment.getAppointmentDate} + ' - ' + ${appointment.getClinic.clinicName}"
+                      ></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- My Pets Tab -->
+          <div
+            class="tab-pane fade"
+            id="pills-mypet"
+            role="tabpanel"
+            aria-labelledby="pills-mypet-tab"
+          >
+            <div th:replace="~{fragments/myPets :: myPets}"></div>
+          </div>
+
+          <!-- Appointment Tab -->
+          <div th:replace="~{fragments/profile_appttab :: appt_tab_frag}"></div>
+
+          <!-- Medical Records Tab -->
+          <div
+            th:replace="~{fragments/profile_medicaltab :: md_tab_frag}"
+          ></div>
+
+          <!-- Prescription Tab -->
+          <div
+            th:replace="~{fragments/profile_scripttab :: script_tab_frag}"
+          ></div>
+
+          <!-- Ed Resources Tab -->
+          <div
+            th:replace="~{fragments/profile_resourcestab :: resource_tab_frag}"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script src="/js/appt_modal.js"></script>
+    <script src="/js/appt_booking.js"></script>
+    <script src="/js/profile_appt_handling.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+      configDate = {
+        minDate: "today",
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "F j, Y",
+      };
+    </script>
+    <!-- Link to external JavaScript file -->
+    <script th:src="@{/js/profile.js}"></script>
+    <script th:src="@{/js/prescription.js}"></script>
+    <script th:src="@{/js/tracking.js}"></script>
+  </body>
+</html>

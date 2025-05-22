@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link th:href="@{/css/footer.css}" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Footer Section -->
+
+    <footer th:fragment="footer" id="vetcare-footer">
+      <div class="footer-content">
+        <div class="footer_logo">
+          <h1>VetCare</h1>
+        </div>
+        <div class="footer-columns">
+          <div class="footer-column">
+            <h3>Contact:</h3>
+            <p>
+              Pawhaven Veterinary Care<br />
+              1234 Pet Lane, City, State, ZIP Code<br />
+              Phone: (123) 456-7890<br />
+              Email: info@pawhavenvetcare.com
+            </p>
+          </div>
+          <div class="footer-column">
+            <h3>Hours of Operation:</h3>
+            <p>
+              Monday - Friday: 8:00 AM - 6:00 PM<br />
+              Saturday: 9:00 AM - 2:00 PM<br />
+              Sunday: Closed
+            </p>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links:</h3>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li th:if="${user == null}">
+                <a
+                  style="color: #ecc8af"
+                  class="nav-link"
+                  href="/login"
+                  aria-label="Account"
+                >
+                  Sign in
+                </a>
+              </li>
+              <li th:if="${user != null}"><a href="/profile">Profile</a></li>
+              <li><a href="/resources">Resources</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+/* Style for selected buttons */
+button.selected {
+    background-color: #ce796b;  
+    color: #ecc8af;  
+    border-color: #ce796b;  
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+/* Ensure the selected button keeps the custom style when pressed (active) */
+button.selected:active, button.selected:focus {
+    background-color: #ce796b;  
+    color: #ecc8af;  
+    border-color: #ce796b;  
+    box-shadow: none;
+}
+
+/* Override Bootstrap's default outline primary button */
+.btn-outline-primary {
+    color: #ce796b; 
+    border-color: #ce796b; 
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn-outline-primary:hover {
+    background-color: #ce796b; 
+    color: #ecc8af;
+}
+
+/* Override Bootstrap's default primary button */
+.resource-card .btn-primary {
+    background-color: #ce796b; 
+    border-color: #ce796b; 
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.resource-card .btn-primary:hover {
+    background-color: #b36254; 
+    color: #ecc8af;
+}
+
+/* Ensure the button keeps the custom style when pressed (active) */
+.resource-card .btn-primary:active, .btn-primary:focus {
+    background-color: #ce796b; 
+    color: #ecc8af;
+    border-color: #ce796b; 
+    box-shadow: none;
+}
+
+/* Styling for button container */
+.resource-card .btn-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: auto; 
+}

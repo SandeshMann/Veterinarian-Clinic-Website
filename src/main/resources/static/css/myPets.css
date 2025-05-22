@@ -1,0 +1,102 @@
+/* Center and enlarge the "My Pets" heading */
+.pets-section {
+    padding: 20px;
+    position: relative; /* So we can position the button on the right */
+    text-align: center; /* Center the heading */
+    margin: 3rem;
+}
+
+.pets-section h2 {
+    color: #444;
+    font-weight:500;
+    font-size: 2.5rem; /* Make the "My Pets" heading larger */
+}
+
+/* Position the "Register Pet" button to the right */
+.register-pet {
+    background-color: #CE796B;
+    color: #ECC8AF;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.register-pet:hover {
+    background-color: #c48778;
+}
+
+/* Pet cards layout */
+.pets-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    gap: 40px; /* Adjust gap between cards */
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Larger card styling */
+.pet-card {
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    width: 105%;
+    border: 3px solid #CE796B;
+}
+
+/* Font styling for larger text */
+.pet-card h3 {
+    margin-top: 0;
+    font-family: "Urbanist", sans-serif;
+    font-size: 2rem;
+    color: #333;
+}
+
+.pet-type {
+    font-family: "Urbanist", sans-serif;
+    color: #555;
+    font-size: 1.2rem;
+    margin: 20px 0;
+}
+
+/* Larger button styling */
+.remove-button {
+    background-color: #CE796B;
+    color: #ECC8AF;
+    border: none;
+    padding: 6px;
+    width: 100px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+    background-color: #c48778;
+}
+
+.pet-card-info{
+    background-color: #E7AD99;
+    border-radius: 5px;
+}
+
+.pet-card-info > p {
+    font-size: 22px;
+    color: #495867;
+    text-align: left;
+    padding: 0 10px 0 10px ;
+}
+
+.pet-card-title{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pet-card-title > h3 {
+    align-self: center;
+}

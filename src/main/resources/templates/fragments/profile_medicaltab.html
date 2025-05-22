@@ -1,0 +1,415 @@
+<html xmlns:th="http://www.thymeleaf.org">
+  <div
+    class="tab-pane fade container mt-5"
+    th:fragment="md_tab_frag"
+    role="tabpanel"
+    id="pills-medicalr"
+  >
+    <!-- Medical Records Tab Content -->
+    <div>
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        "
+      >
+        <h1>Medical Records</h1>
+        <button
+          class="btn btn-primary rp-btn"
+          data-bs-toggle="modal"
+          data-bs-target="#addRecordModal"
+        >
+          + Add Medical Record
+        </button>
+      </div>
+      <div
+        class="alert alert-warning mt-5"
+        role="alert"
+        th:if="${!(#lists.size(medRecords) > 0)}"
+        style="width: 450px"
+      >
+        <p>No Medical Records Added</p>
+      </div>
+      <table
+        class="table table-striped appt-table"
+        th:if="${#lists.size(medRecords) > 0}"
+      >
+        <thead>
+          <tr>
+            <th>Pet Name</th>
+            <th>Record Type</th>
+            <th>Clinic Name</th>
+            <th>Date Issued</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody th:each="medRecord : ${medRecords}">
+          <tr>
+            <td th:text="${medRecord.pet.petName}"></td>
+            <td th:text="${medRecord.recordType}"></td>
+            <td th:text="${medRecord.clinicName}"></td>
+            <td
+              th:text="${#temporals.format(medRecord.dateIssued, 'dd/MM/yyyy')}"
+            ></td>
+            <td>
+              <button
+                th:attr="data-pet-id='${medRecord.pet.petId}'"
+                class="btn btn-primary viewDetailsButton rp-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#petDetailsModal"
+                th:onclick="'setMedRecordId(' + ${medRecord.recordId} + ')'"
+              >
+                View Pet Details
+              </button>
+
+              <!-- Cancel Button -->
+              <button
+                th:attr="data-record-id='${medRecord.recordId}'"
+                class="btn btn-danger cancelButton"
+                th:onclick="'showCancelModal(' + ${medRecord.recordId} + ')'"
+              >
+                Cancel
+              </button>
+            </td>
+          </tr>
+          <tr th:each="i : ${#numbers.sequence(medRecords.size() + 1, 7)}">
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal for adding med records -->
+    <div
+      class="modal fade"
+      id="addRecordModal"
+      tabindex="-1"
+      aria-labelledby="addRecordModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addRecordModalLabel">
+              Add Medical Record
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form
+              id="addRecordForm"
+              class="p-2"
+              action="/medicalrecords/create"
+              method="post"
+            >
+              <!-- Clinic Name + Pet Name Input -->
+              <div class="mb-3 row">
+                <div class="column" style="width: 50%">
+                  <label for="clinicName" class="form-label">Clinic Name</label>
+                  <select
+                    id="clinicName"
+                    class="form-select"
+                    style="background-color: white"
+                    name="clinicName"
+                    required
+                  >
+                    <option
+                      th:each="clinic : ${clinics}"
+                      th:value="${clinic.clinicName}"
+                      th:text="${clinic.clinicName}"
+                    >
+                      Select Clinic
+                    </option>
+                  </select>
+                </div>
+
+                <div class="column" style="width: 50%">
+                  <label for="petSelect" class="form-label">Pet Name</label>
+                  <select
+                    id="petId"
+                    name="petId"
+                    class="form-select"
+                    style="background-color: white"
+                    required
+                  >
+                    <option
+                      th:each="pet : ${pets}"
+                      th:value="${pet.petId}"
+                      th:text="${pet.petName}"
+                      th:data-pet-type="${pet.petType}"
+                      th:data-pet-id="${pet.petId}"
+                      th:data-pet-breed="${pet.petBreed}"
+                    >
+                      Select Pet
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Description Textarea -->
+              <div class="mb-3">
+                <label for="largeTextInput" class="form-label"
+                  >Description</label
+                >
+                <textarea
+                  class="form-control"
+                  id="largeTextInput"
+                  name="description"
+                  rows="5"
+                  placeholder="Enter description"
+                  required
+                ></textarea>
+              </div>
+
+              <!-- Prescription Input + Date -->
+              <div class="mb-3 row">
+                <div class="mb-3 column" style="width: 50%">
+                  <label for="recordType" class="form-label">Record Type</label>
+                  <select
+                    id="recordType"
+                    class="form-select"
+                    style="background-color: white"
+                    name="recordType"
+                    required
+                  >
+                    <option>Vaccination</option>
+                    <option>Treatment Plan</option>
+                    <option>Medical History</option>
+                  </select>
+                </div>
+
+                <!-- Date Issued Input -->
+                <div class="mb-3 column" style="width: 50%">
+                  <label for="dateIssued" class="form-label">Date Issued</label>
+                  <input
+                    type="date"
+                    id="dateIssued"
+                    class="form-control"
+                    name="dateIssued"
+                    required
+                  />
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-secondary"
+                id="submitRecordBtn"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Pet Details -->
+    <div
+      class="modal fade"
+      id="petDetailsModal"
+      tabindex="-1"
+      aria-labelledby="petDetailsModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="petDetailsModalLabel">Pet Details</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="modalBodyContent">
+            <!-- Dynamic content will be loaded here -->
+          </div>
+          <div class="modal-footer">
+            <input
+              type="email"
+              id="emailMedInput"
+              class="form-control"
+              placeholder="Enter email to share"
+              style="width: 30%; background: white"
+            />
+
+            <button class="btn btn-secondary" id="sendEmail-btn">
+              Send Email
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button class="btn btn-secondary" id="download-btn">
+              Download as PDF
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Message -->
+    </div>
+
+    <!-- Modal for Cancel Confirmation -->
+    <div
+      class="modal fade"
+      id="cancelConfirmModal"
+      tabindex="-1"
+      aria-labelledby="cancelConfirmModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content" style="height: 230px">
+          <div class="modal-header">
+            <h5 class="modal-title" id="cancelConfirmModalLabel">
+              Confirm Cancellation
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p style="font-size: 23px">
+              Are you sure you want to cancel this medical record?
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              No
+            </button>
+            <button type="button" class="btn btn-danger" id="confirmCancelBtn">
+              Yes, Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Success Notification -->
+    <div
+      class="modal fade"
+      id="successModal"
+      tabindex="-1"
+      aria-labelledby="successModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="successModalLabel">Record Deleted</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            The medical record has been successfully deleted.
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/profile_medrecord.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Script to handle cancel confirmation, deletion, and success message -->
+    <script>
+      let recordToCancel = null;
+
+      function showCancelModal(recordId) {
+        recordToCancel = recordId;
+        const cancelConfirmModal = new bootstrap.Modal(
+          document.getElementById("cancelConfirmModal")
+        );
+        cancelConfirmModal.show();
+      }
+
+      document
+        .getElementById("confirmCancelBtn")
+        .addEventListener("click", function () {
+          if (recordToCancel !== null) {
+            deleteMedicalRecord(recordToCancel);
+            const cancelConfirmModal = bootstrap.Modal.getInstance(
+              document.getElementById("cancelConfirmModal")
+            );
+            cancelConfirmModal.hide();
+          }
+        });
+
+      function deleteMedicalRecord(recordId) {
+        fetch(`/medicalrecords/delete/${recordId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              // Show success modal instead of alert
+              const successModal = new bootstrap.Modal(
+                document.getElementById("successModal")
+              );
+              successModal.show();
+              // Reload the page after the modal is closed
+              successModal._element.addEventListener(
+                "hidden.bs.modal",
+                function () {
+                  location.reload();
+                }
+              );
+            } else {
+              alert("Failed to delete the medical record.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("An error occurred while deleting the medical record.");
+          });
+      }
+    </script>
+  </div>
+</html>

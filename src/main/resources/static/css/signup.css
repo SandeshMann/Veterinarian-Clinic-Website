@@ -1,0 +1,217 @@
+/*Resource: We acknowledge that Urbanist font is used from google fonts*/
+/* https://fonts.google.com/specimen/Urbanist?query=urbanist */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+.signup_page_container {
+    width: 100%;
+}
+
+
+.login_logout_nav {
+    margin-left: 2rem;
+    margin-top: 1rem;
+}
+/* Style for signup-header class */
+.signup-header {
+    margin-top: none;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-family: "Urbanist", sans-serif;
+
+}
+
+.signup-header h2 {
+    font-family: "Urbanist", sans-serif;
+    color: #fff;
+    font-style: normal;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.signup-header a {
+    color: #ECC8AF;
+    text-decoration: none;
+}
+
+.signup-header a:hover {
+    color: #fff;
+}
+
+.signup-header h1 {
+    font-family: "Urbanist", sans-serif;
+    color: #fff;
+    font-style: normal;
+    font-size: 2.4rem;
+    font-weight: 550;
+}
+
+/* CSS for sinup container class */
+
+.signup-container {
+    margin-top: 10rem;
+    font-family: "Urbanist", sans-serif;
+    width: 40%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #CE796B;
+    padding: 4rem;
+    border-radius: 15px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;;
+}
+
+
+/* CSS for form inputs */
+.signup-container .form-group label {
+    font-style: italic;
+    font-weight: 400;
+    color: #fff;
+}
+
+
+.signup-container .form-group 
+input[type="text"],
+input[type="email"],
+input[type="password"]{
+    background-color: transparent;
+    border-color: #ECC8AF;
+    color: #fff;
+}
+
+.form-group .form-input:focus{
+    background-color: transparent;
+    border-color: #ECC8AF;
+    color: #fff;
+    outline: none;
+}
+
+
+.form-input
+{
+    font-style: italic;
+    font-weight: 200;
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #fff;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 1px solid #ECC8AF;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+
+/* CSS for Success message */
+.succ-msg {
+    font-family: "Urbanist", sans-serif;
+    text-align: center;
+    color: #ECC8AF;
+    font-size: 1.06rem;
+    font-weight: 400;
+}
+
+
+/* Style for input error messages */
+.error-message {
+    font-family: "Urbanist", sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    color: #ECC8AF;
+    font-size: 1rem;
+  }
+
+
+  /* CSS for divider */
+.signup-container .divider {
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.signup-container .divider hr {
+    border: none;
+    height: 2px; /* Adjust this value to make it thicker */
+    background-color: #ECC8AF; /* Change color if needed */
+    width: 85%;
+}
+
+.signup-container .divider-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    text-transform: capitalize;
+    background-color: #CE796B;
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+
+/* Signup button css */
+
+
+.signup-container .signup-btn {
+    width: 100%;
+}
+.signup-container .signup-btn {
+    background-color: #ECC8AF;
+    border-color: #d8b49a;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: #CE796B;
+}
+
+.signup-container .signup-btn:hover {
+    background-color: transparent;
+    text-decoration: none;
+    transition-duration: 0.1s;
+    border: 2px solid #d8b49a;
+    color: #fff;
+}
+
+.signup-container .signup-btn:focus {
+    background-color: transparent;
+    text-decoration: none;
+    transition-duration: 0.1s;
+    border: 1.8px solid #d8b49a;
+    color: #fff;
+    outline: none;
+}
+
+.signup-container .match-pass {
+    background-color: green;
+    color: #fff;
+}
+
+.sign-btn-conatiner {
+    text-align: center;
+}
+
+.sign-btn-conatiner p {
+    font-family: "Urbanist", sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    color: #fff;
+}
+.signin-btn {
+    color: #ECC8AF;
+    font-size: 1.5rem;
+    text-decoration: underline;
+}
+
+.signin-btn:hover {
+    color: #fff;
+    font-size: 1.6;
+    transition-duration: 0.1s;
+}

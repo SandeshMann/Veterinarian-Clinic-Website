@@ -1,0 +1,118 @@
+.track-progress-body {
+    padding:1rem;
+    display: flex;
+    align-items: center;
+    width:100%;
+}
+
+.track-progress-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    height:300px;
+    width:100%;
+}
+
+.track-progress-container .track-steps {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.track-steps .track-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    color: #ECC8AF;
+    font-size: 22px;
+    font-weight: 500;
+    border-radius: 50%;
+    background: #CE796B;
+    border: 2px solid #ECC8AF;
+    transition: all 200ms ease;
+    transition-delay: 0s;
+    z-index: 1;
+}
+
+.track-steps .track-circle.active {
+    transition-delay: 100ms;
+    color: #CE796B;
+    background: #ECC8AF;
+}
+
+.track-steps .track-progress-bar {
+    position: absolute;
+    height: 100%;
+    width: 3px;
+    background: #cca990;
+}
+
+.track-progress-bar .track-indicator {
+    position: absolute;
+    height: 100%;
+    width: 3px;
+    background: #ECC8AF;
+    transition: all 300ms ease;
+}
+
+.delivery-labels {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width:100%;
+    justify-content: space-between;    
+}
+
+.delivery-step {
+    text-align: center;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1.5px solid #ECC8AF;
+    border-radius: 1rem;
+    padding:6px;
+}
+
+.track-content {
+    height: 650px !important;
+}
+
+.track-modal {
+    --bs-modal-width: 550px !important;
+}
+
+.estimated-date{
+   padding: 10px 20px 0 20px;
+}
+
+.track-title{
+    font-size: 30px;
+    padding: 1rem;
+    border-bottom: 1px solid white;
+}
+
+.script-title{
+    display: flex;
+    flex-direction: row;
+    padding: 1.2rem;
+    justify-content: space-between;
+    width: 100%;
+    height: 130px;
+}
+
+/* .script-title > * {
+    display: ;
+} */
+
+.script-title-btn-grp{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height:80px;
+}

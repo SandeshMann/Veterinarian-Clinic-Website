@@ -1,0 +1,336 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<link th:href="@{/css/pet_advice.css}" rel="stylesheet" />
+
+<div class="modal fade" id="myModal" th:fragment="appt_modal_frag">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Bookings</h2>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            style="--bs-btn-close-color: #fff;"
+          ></button>
+        </div>
+        <div class="modal-body">
+
+          <!-- Progress Bar -->
+          <div class="progress-body">
+            <div class="progress-container">
+              <div class="steps">
+                <span class="circle active">1</span>
+                <span class="circle">2</span>
+                <span class="circle">3</span>
+                <span class="circle">4</span>
+                <div class="progress-bar">
+                  <span class="indicator"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- th:onsubmit="'submitForm(event, ' + ${user.email} + ')'" -->
+          <form class="needs-validation" 
+          th:if="${user != null}" 
+          th:onsubmit="'submitForm(event, ' + ${user.userId} + ')'" 
+          id="bookingForm">
+          <div class="modal-container" >
+            <div class="appt-tab" id="Form1">
+              <h4 class="text-center">
+                Please Select a Clinic
+              </h4>
+              <!--North: -37.686300,144.978415-->
+              <!--West: -37.808035,144.802210-->
+              <!--South: -37.832378,144.960434 -->
+              <!--East: -37.826759,145.057961 -->
+
+              <div class="clinic-container">
+                  <div th:each="clinic : ${clinics}" class="clinic row clinic-item">
+                    <!-- Clinic Information -->
+                    <div class="col-8">
+                        <!-- Clinic Name -->
+                        <h5 th:text="${clinic.clinicName}">Clinic Name</h5>
+                        <!-- Clinic Address -->
+                        <h6 th:text="'Address: ' + ${clinic.clinicAddress}"></h6>
+                        <!-- Clinic Email-->
+                        <h6 th:text="'Email: contact@' + ${#strings.replace(clinic.clinicName.toLowerCase(), ' ', '') + '.com'}"></h6>
+                        <!-- Clinic Price-->
+                        <h6 th:text="'Consultation Price: $' + ${clinic.price}"></h6>
+                        <!-- Clinic Loc-->
+                        <h6 th:if="${user.userLocation}" th:text="'Distance: ' + ${user.calculateDistance(clinic.clinicLat, clinic.clinicLon)} + ' km'"></h6>
+                        
+                    </div>
+                    
+                    <!-- Select Button -->
+                    <div class="col-4">
+                        <div class="d-md-flex justify-content-md-end form-check">
+                            <!-- Use the clinic ID for the radio button -->
+                            <input type="radio" th:id="'clinic' + ${clinic.clinicId}" th:value="${clinic.clinicId}" name="clinic" class="d-none" onclick="selectClinic(this);" required>
+                            <button class="btn btn-primary select-btn" type="button" th:onclick="'toggleClinicSelection(this, ' + 'clinic' + ${clinic.clinicId} + ')'">
+                                Select
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+               
+              </div>
+            </div>
+
+            <!-- Pet & Consultation Type-->
+            <div class="appt-tab pet-type" id="Form2">
+              <h4 class="text-center">
+                Please Select Pet Type & Consultation
+              </h4>
+
+              <div class="pet-consult-container" style="color:white">
+                
+                
+
+                <div class="p-2 pet-select">
+                  <div>
+                    <label for="petName" class="form-label">Pet Name</label>
+                    <input class="form-control" list="browsers" name="browser" id="petName">
+                    <datalist id="petList">
+                      <option th:each="pet : ${pets}" 
+                              th:value="${pet.petName}" 
+                              th:text="${pet.petName}"
+                              th:data-pet-type="${pet.petType}"
+                              th:data-pet-id="${pet.petId}"
+                              th:data-pet-breed="${pet.petBreed}"
+                              >Pet Name</option>
+                    </datalist>
+                  </div>
+
+
+                
+                  <div>
+                    <label for="petType" class="form-label">Pet Type</label>
+                    <select class="form-select" id="petType">
+                      <option>Dog</option>
+                      <option>Cat</option>
+                      <option>Bird</option>
+                      <option>Reptile</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="px-2 py-3">
+                  <label for="petBreed" class="form-label">Pet Breed</label>
+                      <input type="text" class="form-control" id="petBreed" 
+                      name="petBreed" placeholder="Enter your pet's breed">
+                </div>
+                
+                <div class="p-2">
+                  <label for="consultationType" class="form-label"
+                      >Consultation Type</label
+                    >
+                    <select class="form-select" placeholder="Select Consult" id="consultationType">
+                      <option>Health Check</option>
+                      <option>Consultation</option>
+                      <option>Vaccination</option>
+                      <option>Revisit</option>
+                    </select>                  
+
+                </div>
+              </div>
+            </div>
+
+            <div class="appt-tab" id="Form3">
+              <h4 class="text-center">Please Select an Availability</h4>
+                <div class="date-picker">
+                  <label class="form-label">Select a Date</label>
+                  <input class="form-control" type="calendar-local" placeholder="Select Date" id="appointmentDate">
+                </div>
+                <br>
+                <div class="time-picker">
+                  <label class="form-label">Select a Time (Appointments last up to 1 hour)</label>
+                    <div class="time-slot-container">
+                      <label class="time-slot">
+                          <input type="radio" name="time-slot" value="09:00"> 
+                          <button class='btn btn-primary select-time selected' type='button'>09:00AM</button>
+                      </label>
+                      <label class="time-slot">
+                          <input type="radio" name="time-slot" value="10:00">
+                          <button class='btn btn-primary select-time' type='button'>10:00AM</button>
+                      </label>
+                      <label class="time-slot">
+                          <input type="radio" name="time-slot" value="11:00">
+                          <button class='btn btn-primary select-time' type='button'>11:00AM</button>
+                      </label>
+                      <label class="time-slot">
+                          <input type="radio" name="time-slot" value="12:00">
+                          <button class='btn btn-primary select-time' type='button'>12:00PM</button>
+                      </label>
+                      <label class="time-slot">
+                          <input type="radio" name="time-slot" value="13:00">
+                          <button class='btn btn-primary select-time' type='button'>1:00PM</button>
+                      </label>
+                      <label class="time-slot">
+                          <input type="radio" name="time-slot" value="14:00">
+                          <button class='btn btn-primary select-time' type='button'>2:00PM</button>
+                      </label>
+                      <label class="time-slot">
+                          <input type="radio" name="time-slot" value="15:00">
+                          <button class='btn btn-primary select-time' type='button'>3:00PM</button>
+                      </label>
+                      <label class="time-slot">
+                          <input type="radio" name="time-slot" value="16:00">
+                          <button class='btn btn-primary select-time' type='button'>4:00PM</button>
+                      </label>
+                  </div>
+                </div>
+            </div>
+
+            <div class="appt-tab" id="Form4">
+              <h4 class="text-center">
+                Please Select Payment-Type
+              </h4>
+              <div class="pay-type-container">
+                <div class="pay-type-tab">
+                  <button
+                    type="button"
+                    class="tablinks active"
+                    onclick="openPayType(event, 'p-online')"
+                  >
+                    Pay-Online
+                  </button>
+                  <button
+                    type="button"
+                    class="tablinks"
+                    onclick="openPayType(event, 'p-inperson')"
+                  >
+                    Pay In-Person
+                  </button>
+                </div>
+
+                <div
+                  id="p-online"
+                  class="tabcontent"
+                  style="padding: 1rem"
+                >
+                  <div class="mb-3">
+                    <label for="cardNumber" class="form-label"
+                      >Card Number</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cardNumber"
+                      placeholder="e.g. 1234 5678 9012 3456"
+                    />
+                  </div>
+
+                  <div>
+                    <label for="cardholderName" class="form-label"
+                      >Cardholder Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cardholderName"
+                      placeholder="e.g. John Doe"
+                    />
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-3">
+                      <label for="expiryDate" class="form-label"
+                        >Expiration Date</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="expiryDate"
+                        placeholder="MM/YY"
+                      />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                      <label for="cvv" class="form-label">CVV</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="cvv"
+                        placeholder="e.g. 123"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  id="p-inperson"
+                  class="tabcontent"
+                  style="padding: 1rem"
+                >
+                  <p>
+                    <b>How to Pay:</b> 
+                  </br>When you arrive, inform
+                    the receptionist that you are there to finalize
+                    payment for your appointment.
+                  </p>
+                  <p>
+                    <b>Accepted Payment Methods: </b> 
+                  </br>- Cash 
+                  </br>- Credit Card (Visa,
+                    MasterCard, American Express) 
+                  </br> - Debit Card
+                  </p>
+                  
+                  <p>
+                    <b>Contact Us:</b> 
+                  </br> If you need
+                    further assistance, please email us at support@vetcare.com.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        </div>
+
+        <div class="modal-footer">
+          <div class="buttons">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="prevBtn"
+              onclick="nextPrev(-1)"
+            >
+              Prev
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="nextBtn"
+              onclick="nextPrev(1)"
+              disabled="disabled"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+
+
+
+    <script src="/js/appt_booking.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+      configDate = {
+        minDate: "today",
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "F j, Y",
+        defaultDate: "today"
+      };
+
+      flatpickr("input[type=calendar-local]", configDate);
+    </script>
+  </div>
+
+  
